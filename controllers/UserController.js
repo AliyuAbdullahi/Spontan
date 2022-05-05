@@ -35,26 +35,27 @@ const handleSignUp = async (req, res, next) => {
         return res.status(409).json({ 'message' : `user already exist` })
     }
 
-    res.setHeader("Content-Type", "application/json");
+    res.setHeader("Content-Type", "application/json")
 
     hash.hash(password, async (result) => {
-        if(result === null) {
-            return res.status(409).json({ 'message' : `invalid password` })
-        } else {
-            try{
-                await User.create(
-                    {
-                        "name": name,
-                        "email": email,
-                        "password": result
-                    }
-                )
-                next()
-            }catch(error) {
-                res.status(500).json({ 'message' : error.message })
+            if(result === null) {
+                return res.status(409).json({ 'message' : `invalid password` })
+            } else {
+                try{
+                    await User.create(
+                        {
+                            "name": name,
+                            "email": email,
+                            "password": result
+                        }
+                    )
+                    next()
+                }catch(error) {
+                    res.status(500).json({ 'message' : error.message })
+                }
             }
         }
-    })
+    )
 }
 
 const buildUser = (user) => {
@@ -71,7 +72,6 @@ const getUsers = async(req, res) => {
 }
 
 const handleLogin = async (req, res) => {
-    console.log(req.body)
     const body = req.body
     const email = body.email
     const password = body.password
@@ -85,27 +85,23 @@ const handleLogin = async (req, res) => {
     }
 
     hash.compare(password, user.password, async (data) => {
-        if (data === null) {
-            return res.status(409).json({ 'message' : `invalid password` })
-        } else {
-            const accessToken = jwt.sign(
-                { "email" : user.email },
-                process.env.ACCESS_TOKEN_SECRET
-            )
-            
-            console.log("Access Token: " + accessToken)
+            if (data === null) {
+                return res.status(409).json({ 'message' : `invalid password` })
+            } else {
+                const accessToken = jwt.sign(
+                    { "email" : user.email },
+                    process.env.ACCESS_TOKEN_SECRET
+                )
 
-            const filter = { email: email }
-            const update = { accessToken: accessToken }
-        
-            let updatedUser = await User.findOneAndUpdate(filter, update)
-            updatedUser.accessToken = accessToken
-
-            console.log("Updated User " + updatedUser)
+                const filter = { email: email }
+                const update = { accessToken: accessToken }
             
-            res.json(buildUser(updatedUser))
+                let updatedUser = await User.findOneAndUpdate(filter, update)
+                updatedUser.accessToken = accessToken
+                res.json(buildUser(updatedUser))
+            }
         }
-    })
+    )
 }
 
 module.exports = { handleSignUp, handleLogin, getUsers }

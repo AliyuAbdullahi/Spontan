@@ -11,7 +11,6 @@ const addEvent = async(req, res) => {
     const foundUser = await User.findOne( {"email" : email} ).exec()
     
     const event = req.body
-    console.log("EVENT_BODY => ", event)
     
     if (event === undefined || event.id === undefined || event.title === undefined || event.time === undefined) {
         return res.status(409).json({'message' : `Event must have id, title and time ${event}`})
@@ -42,7 +41,6 @@ const updateEvent = async(req,res) => {
 
     let eventToDelte = {}
     Object.entries(userEvents).map(([index, value]) => {
-        console.log(value)
         if(value.id === event.id) {
             eventToDelte = value
             found = true
@@ -79,7 +77,6 @@ const deleteEvent = async(req, res) => {
     const userEvents = foundUser.events
 
     Object.entries(userEvents).map(([index, value]) => {
-        console.log(value)
         if(value.id === event.id) {
           found = true
         }

@@ -66,8 +66,8 @@ npm start
 |-------------------|------------------------|--------------------------------------------------------------------------------------------------------|------------|--------|
 | Sign up           |                        | { email: String, name: String, password: String }                                                      | /signup    | post   |
 | Login             | x-access-token: String | { email: String, password: String }                                                                    | /login     | post   |
-| Create Event      | x-access-token: String | {id: String, title: String, time: Long, description: String, cover_color: String, cover_image: String} | /event     | post   |
-| Update Event      | x-access-token: String | {id: String, title: String, time: Long, description: String, cover_color: String, cover_image: String} | /event     | put    |
+| Create Event      | x-access-token: String | { id: String, title: String, time: Long, description: String, cover_color: String, cover_image: String } | /event     | post   |
+| Update Event      | x-access-token: String | { id: String, title: String, time: Long, description: String, cover_color: String, cover_image: String } | /event     | put    |
 | Get all events    | x-access-token: String |                                                                                                        | /event     | get    |
 | delete event      | x-access-token: String | {id: String}                                                                                           | /event     | delete |
 | delete all events | x-access-token: String |                                                                                                        | /event/all | delete |

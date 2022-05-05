@@ -10,8 +10,6 @@ const eventsRoute = require('./routes/EventsRoute')
 
 const PORT = process.env.PORT || 3500
 
-console.log("Database_URL", process.env.DATABASE_URI);
-
 connectDb()
 
 const app = express()
@@ -35,7 +33,6 @@ app.get('/', (req, res) => {
 })
 
 mongoose.connection.once('open', () => {
-    console.log("Database_URL", process.env.DATABASE_URI);
     console.log("Connected to MongoDb")
     http.listen(PORT, () => { console.log(`Listening on port ${PORT}`) })
 })
