@@ -60,6 +60,7 @@ npm start
 
 ## Routes
 
+Base URL : ```https://spontan-backend.herokuapp.com```
   
 
 | Route             | headers                | body params                                                                                            | endpoint   | verb   |
