@@ -98,7 +98,7 @@ const handleLogin = async (req, res) => {
             
                 let updatedUser = await User.findOneAndUpdate(filter, update)
                 updatedUser.accessToken = accessToken
-                res.json(buildUser(updatedUser))
+                res.status(200).json(buildUser(updatedUser))
             }
         }
     )

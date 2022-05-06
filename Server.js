@@ -7,6 +7,7 @@ const loginRoute = require('./routes/LoginRoute')
 const signUpRoute = require('./routes/SignupRoute')
 const getUsersRoute = require('./routes/UsersRoute')
 const eventsRoute = require('./routes/EventsRoute')
+const Routes = require('./routes/Routes')
 
 const PORT = process.env.PORT || 3500
 
@@ -14,25 +15,25 @@ connectDb()
 
 const app = express()
 
-const http = require('http').Server(app);
-
 app.use(express.json())
 
 app.use(bodyParser.urlencoded({ extended : true }))
 
-app.use('/signup', signUpRoute)
+app.use(Routes.SIGN_UP.PATH, signUpRoute)
 
-app.use('/login', loginRoute)
+app.use(Routes.LOG_IN.PATH, loginRoute)
 
-app.use('/users', getUsersRoute)
+app.use(Routes.USERS.PATH, getUsersRoute)
 
-app.use('/event', eventsRoute)
+app.use(Routes.EVENT.PATH, eventsRoute)
 
 app.get('/', (req, res) => {
-    res.json({ 'message' : 'Welcome to Spontan API' })
+    res.status(200).json({ 'message' : 'Welcome to Spontan API' })
 })
 
-mongoose.connection.once('open', () => {
-    console.log("Connected to MongoDb")
-    http.listen(PORT, () => { console.log(`Listening on port ${PORT}`) })
-})
+const server = app.listen(
+    PORT,
+    console.log(`Server is listening on port ${PORT}...`)
+);
+
+module.exports = { app, server }
