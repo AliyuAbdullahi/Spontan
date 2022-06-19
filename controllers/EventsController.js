@@ -16,9 +16,7 @@ const addEvent = async(req, res) => {
         event === undefined || 
         event.id === undefined || 
         event.title === undefined || 
-        event.time === undefined || 
-        event.cover_color === undefined || 
-        event.cover_image === undefined
+        event.time === undefined
     ) { return res.status(409).json({'message' : `Event must have id, title, time, cover_color and cover_image ${event}`}) }
 
     const userEvents = foundUser.events

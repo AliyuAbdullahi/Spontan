@@ -105,6 +105,3 @@ const handleLogin = async (req, res) => {
 }
 
 module.exports = { handleSignUp, handleLogin, getUsers }
-
-
-
